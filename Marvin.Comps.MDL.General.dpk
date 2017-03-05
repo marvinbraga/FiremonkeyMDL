@@ -1,0 +1,43 @@
+package Marvin.Comps.MDL.General;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$IMPLICITBUILD ON}
+
+requires
+  rtl,
+  fmx;
+
+contains
+  Marvin.Comps.MDL.Buttons in 'Marvin.Comps.MDL.Buttons.pas',
+  Marvin.Comps.MDL.Frame.Button.Flat in 'Marvin.Comps.MDL.Frame.Button.Flat.pas' {fraMRVRaisedFlatButtonMDL: TFrame},
+  Marvin.Comps.MDL.Frame.ProgressCount in 'Marvin.Comps.MDL.Frame.ProgressCount.pas' {fraMarvinProgressCount: TFrame},
+  Marvin.Comps.MDL.Intf.Button in 'Marvin.Comps.MDL.Intf.Button.pas',
+  Marvin.Comps.MDL.Intf.ProgressCount in 'Marvin.Comps.MDL.Intf.ProgressCount.pas',
+  Marvin.Comps.MDL.ProgressCount in 'Marvin.Comps.MDL.ProgressCount.pas',
+  Marvin.Comps.MDL.Register in 'Marvin.Comps.MDL.Register.pas';
+
+end.

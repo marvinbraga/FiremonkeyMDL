@@ -1,0 +1,233 @@
+object fraMarvinProgressCount: TfraMarvinProgressCount
+  HitTest = False
+  Size.Width = 410.000000000000000000
+  Size.Height = 391.000000000000000000
+  Size.PlatformDefault = False
+  OnResize = FrameResize
+  object retBackground: TRectangle
+    Align = Client
+    Fill.Color = xFF1D1D1D
+    Opacity = 0.500000000000000000
+    Size.Width = 410.000000000000000000
+    Size.Height = 391.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Kind = None
+  end
+  object arcValue1: TArc
+    Align = Center
+    HitTest = False
+    Margins.Left = 17.000000000000000000
+    Margins.Top = 17.000000000000000000
+    Margins.Right = 17.000000000000000000
+    Margins.Bottom = 17.000000000000000000
+    Size.Width = 300.000000000000000000
+    Size.Height = 300.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Color = claMidnightblue
+    Stroke.Thickness = 15.000000000000000000
+    EndAngle = -90.000000000000000000
+    object arcValue2: TArc
+      Align = Client
+      HitTest = False
+      Margins.Left = 17.000000000000000000
+      Margins.Top = 17.000000000000000000
+      Margins.Right = 17.000000000000000000
+      Margins.Bottom = 17.000000000000000000
+      Size.Width = 266.000000000000000000
+      Size.Height = 266.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Color = claMidnightblue
+      Stroke.Thickness = 15.000000000000000000
+      EndAngle = -90.000000000000000000
+      object arcValue3: TArc
+        Align = Client
+        HitTest = False
+        Margins.Left = 17.000000000000000000
+        Margins.Top = 17.000000000000000000
+        Margins.Right = 17.000000000000000000
+        Margins.Bottom = 17.000000000000000000
+        Size.Width = 232.000000000000000000
+        Size.Height = 232.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Color = claMidnightblue
+        Stroke.Thickness = 15.000000000000000000
+        EndAngle = -90.000000000000000000
+        object arcValue4: TArc
+          Align = Client
+          HitTest = False
+          Margins.Left = 17.000000000000000000
+          Margins.Top = 17.000000000000000000
+          Margins.Right = 17.000000000000000000
+          Margins.Bottom = 17.000000000000000000
+          Size.Width = 198.000000000000000000
+          Size.Height = 198.000000000000000000
+          Size.PlatformDefault = False
+          Stroke.Color = claMidnightblue
+          Stroke.Thickness = 15.000000000000000000
+          EndAngle = -90.000000000000000000
+          object crcProgress: TCircle
+            Align = Client
+            Fill.Color = claAzure
+            HitTest = False
+            Margins.Left = 17.000000000000000000
+            Margins.Top = 17.000000000000000000
+            Margins.Right = 17.000000000000000000
+            Margins.Bottom = 17.000000000000000000
+            Size.Width = 164.000000000000000000
+            Size.Height = 164.000000000000000000
+            Size.PlatformDefault = False
+            Stroke.Kind = None
+            object arcProgress: TArc
+              Align = Client
+              HitTest = False
+              Margins.Left = 2.000000000000000000
+              Margins.Top = 2.000000000000000000
+              Margins.Right = 2.000000000000000000
+              Margins.Bottom = 2.000000000000000000
+              Size.Width = 160.000000000000000000
+              Size.Height = 160.000000000000000000
+              Size.PlatformDefault = False
+              Stroke.Color = xFFD9D9D9
+              Stroke.Thickness = 15.000000000000000000
+              EndAngle = -90.000000000000000000
+              object FloatAnimationProgressValue: TFloatAnimation
+                Duration = 0.200000002980232200
+                OnProcess = FloatAnimationValue1Process
+                StartValue = 0.000000000000000000
+                StopValue = 0.000000000000000000
+              end
+              object lblProgress: TLabel
+                Align = Client
+                StyledSettings = [Family]
+                Margins.Left = 5.000000000000000000
+                Margins.Top = 5.000000000000000000
+                Margins.Right = 5.000000000000000000
+                Margins.Bottom = 5.000000000000000000
+                Size.Width = 150.000000000000000000
+                Size.Height = 150.000000000000000000
+                Size.PlatformDefault = False
+                StyleLookup = 'listboxheaderlabel'
+                TextSettings.Font.Size = 18.000000000000000000
+                TextSettings.Font.StyleExt = {00070000000000000004000000}
+                TextSettings.HorzAlign = Center
+                Text = '25,00%'
+                object sdwProgress: TShadowEffect
+                  Distance = 2.000000000000000000
+                  Direction = 45.000000000000000000
+                  Softness = 0.100000001490116100
+                  Opacity = 0.600000023841857900
+                  ShadowColor = claBlack
+                end
+              end
+            end
+          end
+          object FloatAnimationValue4: TFloatAnimation
+            Duration = 2.500000000000000000
+            Interpolation = Cubic
+            OnProcess = FloatAnimationValue1Process
+            OnFinish = FloatAnimationValue4Finish
+            PropertyName = 'EndAngle'
+            StartValue = 0.000000000000000000
+            StopValue = 360.000000000000000000
+          end
+        end
+        object FloatAnimationValue3: TFloatAnimation
+          Duration = 2.500000000000000000
+          Interpolation = Cubic
+          OnProcess = FloatAnimationValue1Process
+          OnFinish = FloatAnimationValue3Finish
+          PropertyName = 'EndAngle'
+          StartValue = 0.000000000000000000
+          StopValue = 360.000000000000000000
+        end
+      end
+      object FloatAnimationValue2: TFloatAnimation
+        Duration = 2.500000000000000000
+        Interpolation = Cubic
+        OnProcess = FloatAnimationValue1Process
+        OnFinish = FloatAnimationValue2Finish
+        PropertyName = 'EndAngle'
+        StartValue = 0.000000000000000000
+        StopValue = 360.000000000000000000
+      end
+    end
+    object sdwArc1: TShadowEffect
+      Distance = 8.000000000000000000
+      Direction = 45.000000000000000000
+      Softness = 0.300000011920929000
+      Opacity = 0.600000023841857900
+      ShadowColor = claBlack
+    end
+    object FloatAnimationWidth: TFloatAnimation
+      Duration = 0.300000011920929000
+      OnProcess = FloatAnimationValue1Process
+      PropertyName = 'Width'
+      StartValue = 0.000000000000000000
+      StopValue = 300.000000000000000000
+    end
+    object FloatAnimationHeight: TFloatAnimation
+      Duration = 0.300000011920929000
+      OnProcess = FloatAnimationValue1Process
+      OnFinish = FloatAnimationHeightFinish
+      PropertyName = 'Height'
+      StartValue = 0.000000000000000000
+      StopValue = 300.000000000000000000
+    end
+    object FloatAnimationValue1: TFloatAnimation
+      Duration = 2.500000000000000000
+      Interpolation = Cubic
+      OnProcess = FloatAnimationValue1Process
+      OnFinish = FloatAnimationValue1Finish
+      PropertyName = 'EndAngle'
+      StartValue = 0.000000000000000000
+      StopValue = 360.000000000000000000
+    end
+  end
+  object retMessage: TRectangle
+    Align = Horizontal
+    Fill.Color = xFF494949
+    HitTest = False
+    Position.Y = 288.000000000000000000
+    Size.Width = 410.000000000000000000
+    Size.Height = 49.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Kind = Gradient
+    Stroke.Gradient.Points = <
+      item
+        Color = claWhite
+        Offset = 0.000000000000000000
+      end
+      item
+        Color = xFF787878
+        Offset = 0.509316742420196500
+      end
+      item
+        Color = claWhite
+        Offset = 1.000000000000000000
+      end>
+    Stroke.Gradient.StartPosition.Y = 0.500000000000000000
+    Stroke.Gradient.StopPosition.X = 1.000000000000000000
+    Stroke.Gradient.StopPosition.Y = 0.500000000000000000
+    Visible = False
+    XRadius = 3.000000000000000000
+    YRadius = 3.000000000000000000
+    object lblMessage: TLabel
+      Align = Client
+      StyledSettings = [Family, Style]
+      Size.Width = 410.000000000000000000
+      Size.Height = 49.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.FontColor = claWhite
+      TextSettings.HorzAlign = Center
+      TextSettings.Trimming = Word
+      Text = 'Tarefa finalizada.'
+    end
+    object sdwMessage: TShadowEffect
+      Distance = 3.000000000000000000
+      Direction = 45.000000000000000000
+      Softness = 0.300000011920929000
+      Opacity = 0.600000023841857900
+      ShadowColor = claBlack
+    end
+  end
+end

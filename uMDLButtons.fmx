@@ -1,0 +1,90 @@
+object FormPOCButtonsMDL: TFormPOCButtonsMDL
+  Left = 0
+  Top = 0
+  Caption = 'Material Design Lite com Firemonkey - by Marvin'
+  ClientHeight = 207
+  ClientWidth = 436
+  Fill.Kind = Solid
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 0
+  object btnMDL: TMRVButtonMDL
+    Position.X = 16.000000000000000000
+    Position.Y = 16.000000000000000000
+    Size.Width = 120.000000000000000000
+    Size.Height = 30.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+  end
+  object btnTeste: TButton
+    Position.X = 16.000000000000000000
+    Position.Y = 56.000000000000000000
+    Size.Width = 120.000000000000000000
+    Size.Height = 30.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    Text = 'btnTeste'
+  end
+  object lblMensagem: TLabel
+    Anchors = [akLeft, akTop, akRight]
+    StyledSettings = [Family, Size, FontColor]
+    Position.X = 16.000000000000000000
+    Position.Y = 152.000000000000000000
+    Size.Width = 406.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Font.StyleExt = {00070000000000000004000000}
+    TextSettings.HorzAlign = Center
+    Text = 'Mensagem'
+  end
+  object lblCor: TLabel
+    Anchors = [akTop, akRight]
+    Position.X = 197.000000000000000000
+    Position.Y = 104.000000000000000000
+    Text = 'Cor: 0'
+  end
+  object swtRipple: TSwitch
+    Anchors = [akTop, akRight]
+    IsChecked = False
+    Position.X = 341.000000000000000000
+    Position.Y = 19.000000000000000000
+    TabOrder = 4
+    OnClick = swtRippleClick
+    object lblRipple: TLabel
+      Anchors = [akTop, akRight]
+      Position.X = -146.000000000000000000
+      Position.Y = 5.000000000000000000
+      Text = 'Ativa o efeito Ripple'
+    end
+  end
+  object swtEnabled: TSwitch
+    Anchors = [akTop, akRight]
+    IsChecked = True
+    Position.X = 341.000000000000000000
+    Position.Y = 59.000000000000000000
+    TabOrder = 5
+    OnClick = swtEnabledClick
+    object lblEnabled: TLabel
+      Anchors = [akTop, akRight]
+      Position.X = -146.000000000000000000
+      Position.Y = 5.000000000000000000
+      Text = 'Habilita o bot'#227'o'
+    end
+  end
+  object trcColor: TTrackBar
+    Anchors = [akTop, akRight]
+    CanParentFocus = True
+    Frequency = 1.000000000000000000
+    Max = 2.000000000000000000
+    Orientation = Horizontal
+    Position.X = 341.000000000000000000
+    Position.Y = 103.000000000000000000
+    Size.Width = 76.000000000000000000
+    Size.Height = 19.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 6
+    OnChange = trcColorChange
+  end
+end

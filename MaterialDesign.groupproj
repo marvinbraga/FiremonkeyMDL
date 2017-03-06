@@ -6,10 +6,10 @@
         <Projects Include="Marvin.Comps.MDL.General.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="POCProgressCountFireMonkey.dproj">
-            <Dependencies/>
-        </Projects>
         <Projects Include="POCButtonsMDLFireMonkey.dproj">
+            <Dependencies>Marvin.Comps.MDL.General.dproj</Dependencies>
+        </Projects>
+        <Projects Include="POCProgressCountFireMonkey.dproj">
             <Dependencies/>
         </Projects>
     </ItemGroup>
@@ -29,6 +29,15 @@
     <Target Name="Marvin_Comps_MDL_General:Make">
         <MSBuild Projects="Marvin.Comps.MDL.General.dproj" Targets="Make"/>
     </Target>
+    <Target Name="POCButtonsMDLFireMonkey" DependsOnTargets="Marvin.Comps.MDL.General">
+        <MSBuild Projects="POCButtonsMDLFireMonkey.dproj"/>
+    </Target>
+    <Target Name="POCButtonsMDLFireMonkey:Clean" DependsOnTargets="Marvin.Comps.MDL.General:Clean">
+        <MSBuild Projects="POCButtonsMDLFireMonkey.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="POCButtonsMDLFireMonkey:Make" DependsOnTargets="Marvin.Comps.MDL.General:Make">
+        <MSBuild Projects="POCButtonsMDLFireMonkey.dproj" Targets="Make"/>
+    </Target>
     <Target Name="POCProgressCountFireMonkey">
         <MSBuild Projects="POCProgressCountFireMonkey.dproj"/>
     </Target>
@@ -38,23 +47,14 @@
     <Target Name="POCProgressCountFireMonkey:Make">
         <MSBuild Projects="POCProgressCountFireMonkey.dproj" Targets="Make"/>
     </Target>
-    <Target Name="POCButtonsMDLFireMonkey">
-        <MSBuild Projects="POCButtonsMDLFireMonkey.dproj"/>
-    </Target>
-    <Target Name="POCButtonsMDLFireMonkey:Clean">
-        <MSBuild Projects="POCButtonsMDLFireMonkey.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="POCButtonsMDLFireMonkey:Make">
-        <MSBuild Projects="POCButtonsMDLFireMonkey.dproj" Targets="Make"/>
-    </Target>
     <Target Name="Build">
-        <CallTarget Targets="Marvin_Comps_MDL_General;POCProgressCountFireMonkey;POCButtonsMDLFireMonkey"/>
+        <CallTarget Targets="Marvin_Comps_MDL_General;POCButtonsMDLFireMonkey;POCProgressCountFireMonkey"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="Marvin_Comps_MDL_General:Clean;POCProgressCountFireMonkey:Clean;POCButtonsMDLFireMonkey:Clean"/>
+        <CallTarget Targets="Marvin_Comps_MDL_General:Clean;POCButtonsMDLFireMonkey:Clean;POCProgressCountFireMonkey:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="Marvin_Comps_MDL_General:Make;POCProgressCountFireMonkey:Make;POCButtonsMDLFireMonkey:Make"/>
+        <CallTarget Targets="Marvin_Comps_MDL_General:Make;POCButtonsMDLFireMonkey:Make;POCProgressCountFireMonkey:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

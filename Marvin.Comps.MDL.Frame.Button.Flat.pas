@@ -61,7 +61,9 @@ type
     FRipple: Boolean;
     FPrimaryColor: TAlphaColor;
     FAccentColor: TAlphaColor;
+    FDefaultColor: TAlphaColor;
     FButtonColor: TMRVColorMDLType;
+    FBackgroundStyle: TMRVBackgroundStyle;
   private
     procedure StartRipple(X: Single; Y: Single);
     { métodos da interface }
@@ -107,12 +109,17 @@ type
     function GetResultingTextSettings: TTextSettings;
     function GetStyledSettings: TStyledSettings;
     procedure SetStyledSettings(const Value: TStyledSettings);
+    function GetBackgroundStyle: TMRVBackgroundStyle;
+    procedure SetBackgroundStyle(const Value: TMRVBackgroundStyle);
+    procedure UpdateDefaultColor;
   protected
     function MaxValue(AValue1: Single; AValue2: Single): Single;
     function GetEnabled: Boolean;
     procedure SetEnabled(const Value: Boolean); override;
     procedure ChangeButtonColor; virtual;
     procedure ExecuteClickEvents(Sender: TObject);
+    procedure ConfigDarkColor;
+    procedure ConfigCleanColor;
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -140,6 +147,7 @@ type
     property PrimaryColor: TAlphaColor read GetPrimaryColor write SetPrimaryColor;
     property AccentColor: TAlphaColor read GetAccentColor write SetAccentColor;
     property ButtonColor: TMRVColorMDLType read GetButtonColor write SetButtonColor;
+    property BackgroundStyle: TMRVBackgroundStyle read GetBackgroundStyle write SetBackgroundStyle;
     property XRadius: Single read GetXRadius write SetXRadius;
     property YRadius: Single read GetYRadius write SetYRadius;
     { eventos }
@@ -173,7 +181,7 @@ begin
   { ajusta a cor do label }
   case FButtonColor of
     { preta }
-    clNone: lblText.FontColor := TAlphaColors.Black;
+    clNone: lblText.FontColor := FDefaultColor;
     { cor primária }
     clColored: lblText.FontColor := FPrimaryColor;
     { cor secundária }
@@ -186,6 +194,34 @@ begin
   inherited;
   { falta ajustar }
   retButtonClick(Self);
+end;
+
+procedure TfraMRVRaisedFlatButtonMDL.ConfigCleanColor;
+begin
+  { informa a cor }
+  FDefaultColor := TAlphaColors.White;
+  { cores dos objetos }
+  Self.UpdateDefaultColor;
+  { ajusta o Ripple }
+  crcRipple.Fill.Color := FDefaultColor;
+  { ajusta os níveis de opacidade dos efeitos }
+  FloatAnimationClick.StopValue := 0.5;
+  FloatAnimationOpacity.StopValue := 0.3;
+  FloatAnimationRippleOpacity.StopValue := 1;
+end;
+
+procedure TfraMRVRaisedFlatButtonMDL.ConfigDarkColor;
+begin
+  { informa a cor }
+  FDefaultColor := TAlphaColors.Black;
+  { cores dos objetos }
+  Self.UpdateDefaultColor;
+  { ajusta o Ripple }
+  crcRipple.Fill.Color := FDefaultColor;
+  { ajusta os níveis de opacidade dos efeitos }
+  FloatAnimationClick.StopValue := 0.4;
+  FloatAnimationOpacity.StopValue := 0.2;
+  FloatAnimationRippleOpacity.StopValue := 1;
 end;
 
 constructor TfraMRVRaisedFlatButtonMDL.Create(AOwner: TComponent);
@@ -242,6 +278,11 @@ end;
 function TfraMRVRaisedFlatButtonMDL.GetAccentColor: TAlphaColor;
 begin
   Result := FAccentColor;
+end;
+
+function TfraMRVRaisedFlatButtonMDL.GetBackgroundStyle: TMRVBackgroundStyle;
+begin
+  Result := FBackgroundStyle;
 end;
 
 function TfraMRVRaisedFlatButtonMDL.GetButtonColor: TMRVColorMDLType;
@@ -343,7 +384,10 @@ end;
 procedure TfraMRVRaisedFlatButtonMDL.retButtonClick(Sender: TObject);
 begin
   { executa a animação }
-  FloatAnimationClick.Start;
+  if not(FRipple) then
+  begin
+    FloatAnimationClick.Start;
+  end;
   { executa eventos de clique }
   Self.ExecuteClickEvents(Sender);
 end;
@@ -385,6 +429,17 @@ end;
 procedure TfraMRVRaisedFlatButtonMDL.SetAccentColor(const Value: TAlphaColor);
 begin
   FAccentColor := Value;
+end;
+
+procedure TfraMRVRaisedFlatButtonMDL.SetBackgroundStyle(
+  const Value: TMRVBackgroundStyle);
+begin
+  FBackgroundStyle := Value;
+  { ajusta os fundos }
+  case FBackgroundStyle of
+    bsDark: Self.ConfigDarkColor;
+    bsClean: Self.ConfigCleanColor;
+  end;
 end;
 
 procedure TfraMRVRaisedFlatButtonMDL.SetButtonColor(
@@ -459,6 +514,13 @@ end;
 procedure TfraMRVRaisedFlatButtonMDL.SetParentControl(const AParent: TFmxObject);
 begin
   Self.Parent := AParent;
+end;
+
+procedure TfraMRVRaisedFlatButtonMDL.UpdateDefaultColor;
+begin
+  { cores dos objetos }
+  retButton.Fill.Color := FDefaultColor;
+  Self.FontColor := FDefaultColor;
 end;
 
 procedure TfraMRVRaisedFlatButtonMDL.ExecuteClickEvents(Sender: TObject);

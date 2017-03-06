@@ -47,6 +47,8 @@ type
     procedure SetYRadius(const Value: Single);
     function GetButtonColor: TMRVColorMDLType;
     procedure SetButtonColor(const Value: TMRVColorMDLType);
+    function GetBackgroundStyle: TMRVBackgroundStyle;
+    procedure SetBackgroundStyle(const Value: TMRVBackgroundStyle);
     { componente }
     function GetButtonStyle: TMRVButtonMDLStyle;
     function GetButtonType: TMRVButtonMDLType;
@@ -93,6 +95,7 @@ type
     property PrimaryColor: TAlphaColor read GetPrimaryColor write SetPrimaryColor;
     property AccentColor: TAlphaColor read GetAccentColor write SetAccentColor;
     property ButtonColor: TMRVColorMDLType read GetButtonColor write SetButtonColor;
+    property BackgroundStyle: TMRVBackgroundStyle read GetBackgroundStyle write SetBackgroundStyle;
     property XRadius: Single read GetXRadius write SetXRadius;
     property YRadius: Single read GetYRadius write SetYRadius;
     { múltiplos eventos }
@@ -140,6 +143,8 @@ begin
     Self.InitButton;
     { informa o parent }
     FButtonMDL.SetParentControl(Self);
+    { background }
+    FButtonMDL.BackgroundStyle := bsDark;
     { informa que o objeto trabalha com alinhamento }
     (FButtonMDL as IAlignableObject).Align := TAlignLayout.Client;
   end;
@@ -203,6 +208,11 @@ end;
 function TMRVButtonMDL.GetAccentColor: TAlphaColor;
 begin
   Result := FButtonMDL.AccentColor;
+end;
+
+function TMRVButtonMDL.GetBackgroundStyle: TMRVBackgroundStyle;
+begin
+  Result := FButtonMDL.BackgroundStyle;
 end;
 
 function TMRVButtonMDL.GetButtonColor: TMRVColorMDLType;
@@ -309,6 +319,11 @@ end;
 procedure TMRVButtonMDL.SetAccentColor(const Value: TAlphaColor);
 begin
   FButtonMDL.AccentColor := Value;
+end;
+
+procedure TMRVButtonMDL.SetBackgroundStyle(const Value: TMRVBackgroundStyle);
+begin
+  FButtonMDL.BackgroundStyle := Value;
 end;
 
 procedure TMRVButtonMDL.SetButtonColor(const Value: TMRVColorMDLType);

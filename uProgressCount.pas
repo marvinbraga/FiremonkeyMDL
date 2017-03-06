@@ -101,7 +101,6 @@ uses
   FMX.Styles;
 
 {$R *.fmx}
-{$R *.NmXhdpiPh.fmx ANDROID}
 
 procedure TFormProgressCountApplicationPOC.CreateProgressCount;
 begin

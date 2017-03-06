@@ -33,10 +33,13 @@ type
     swtRipple: TSwitch;
     swtEnabled: TSwitch;
     trcColor: TTrackBar;
+    swtCorPadrao: TSwitch;
+    lblCorPadrao: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure swtEnabledClick(Sender: TObject);
     procedure swtRippleClick(Sender: TObject);
     procedure trcColorChange(Sender: TObject);
+    procedure swtCorPadraoClick(Sender: TObject);
   private
     { Private declarations }
     procedure InitButton;
@@ -74,8 +77,9 @@ begin
   //btnMDL.XRadius := 5;
   //btnMDL.YRadius := 5;
   { cor }
-  btnMDL.PrimaryColor := TAlphaColors.Indigo;
-  btnMDL.AccentColor := TAlphaColors.Tomato;
+  btnMDL.PrimaryColor := TAlphaColors.Aqua;
+  btnMDL.AccentColor := TAlphaColors.Yellow;
+  btnMDL.BackgroundStyle := bsDark;
   { eventos }
   btnMDL.AddOnClickEvent(InternalOnClick);
   btnTeste.OnClick := InternalOnClick;
@@ -94,6 +98,18 @@ begin
   begin
     { recupera o texto do botão clicado }
     lblMensagem.Text := 'Cliquei em ' + (TComponent(Sender) as ICaption).Text;
+  end;
+end;
+
+procedure TFormPOCButtonsMDL.swtCorPadraoClick(Sender: TObject);
+begin
+  if swtCorPadrao.IsChecked then
+  begin
+    btnMDL.BackgroundStyle := bsClean;
+  end
+  else
+  begin
+    btnMDL.BackgroundStyle := bsDark;
   end;
 end;
 

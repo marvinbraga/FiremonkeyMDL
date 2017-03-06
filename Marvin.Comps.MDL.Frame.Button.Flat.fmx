@@ -2,20 +2,6 @@ object fraMRVRaisedFlatButtonMDL: TfraMRVRaisedFlatButtonMDL
   Size.Width = 90.000000000000000000
   Size.Height = 30.000000000000000000
   Size.PlatformDefault = False
-  object lblText: TLabel
-    Align = Client
-    StyledSettings = []
-    Margins.Left = 5.000000000000000000
-    Margins.Top = 3.000000000000000000
-    Margins.Right = 5.000000000000000000
-    Margins.Bottom = 3.000000000000000000
-    Size.Width = 80.000000000000000000
-    Size.Height = 24.000000000000000000
-    Size.PlatformDefault = False
-    TextSettings.Font.StyleExt = {00070000000000000004000000}
-    TextSettings.HorzAlign = Center
-    Text = 'BUTTON'
-  end
   object retButton: TRectangle
     Align = Client
     ClipChildren = True
@@ -59,8 +45,9 @@ object fraMRVRaisedFlatButtonMDL: TfraMRVRaisedFlatButtonMDL
       Stroke.Kind = None
       Visible = False
       object FloatAnimationRippleOpacity: TFloatAnimation
-        AutoReverse = True
-        Duration = 0.200000002980232200
+        AnimationType = Out
+        Duration = 0.250000000000000000
+        Interpolation = Cubic
         OnFinish = FloatAnimationRippleOpacityFinish
         PropertyName = 'Opacity'
         StartValue = 0.000000000000000000
@@ -81,5 +68,19 @@ object fraMRVRaisedFlatButtonMDL: TfraMRVRaisedFlatButtonMDL
       Opacity = 0.600000023841857900
       ShadowColor = claBlack
     end
+  end
+  object lblText: TLabel
+    Align = Client
+    StyledSettings = []
+    Margins.Left = 5.000000000000000000
+    Margins.Top = 3.000000000000000000
+    Margins.Right = 5.000000000000000000
+    Margins.Bottom = 3.000000000000000000
+    Size.Width = 80.000000000000000000
+    Size.Height = 24.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Font.StyleExt = {00070000000000000004000000}
+    TextSettings.HorzAlign = Center
+    Text = 'BUTTON'
   end
 end

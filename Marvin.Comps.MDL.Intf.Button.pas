@@ -18,6 +18,8 @@ type
   TMRVButtonMDLStyle = (bsFlat, bsPlain);
   { cores }
   TMRVColorMDLType = (clNone, clColored, clAccent);
+  { estilo do background }
+  TMRVBackgroundStyle = (bsDark, bsClean);
 
   IFont = interface
     ['{E22F7B3D-BF3B-48A6-AFD3-B1F07140CE46}']
@@ -63,6 +65,8 @@ type
     procedure SetYRadius(const Value: Single);
     function GetButtonColor: TMRVColorMDLType;
     procedure SetButtonColor(const Value: TMRVColorMDLType);
+    function GetBackgroundStyle: TMRVBackgroundStyle;
+    procedure SetBackgroundStyle(const Value: TMRVBackgroundStyle);
     function GetOnClickEvents: TList<TNotifyEvent>;
     procedure SetOnClickEvents(const Value: TList<TNotifyEvent>);
     function AddOnClickEvent(AEvent: TNotifyEvent): Boolean;
@@ -72,6 +76,7 @@ type
     property PrimaryColor: TAlphaColor read GetPrimaryColor write SetPrimaryColor;
     property AccentColor: TAlphaColor read GetAccentColor write SetAccentColor;
     property ButtonColor: TMRVColorMDLType read GetButtonColor write SetButtonColor;
+    property BackgroundStyle: TMRVBackgroundStyle read GetBackgroundStyle write SetBackgroundStyle;
     property XRadius: Single read GetXRadius write SetXRadius;
     property YRadius: Single read GetYRadius write SetYRadius;
     { eventos }

@@ -1,3 +1,7 @@
+{ /------------------------------------------------------------------/
+  / Por Marcus Vinicius Braga - Marvinbraga Youtube Channel - Brazil /
+  /------------------------------------------------------------------/  }
+
 unit Marvin.Comps.MDL.Buttons;
 
 interface
@@ -20,14 +24,37 @@ uses
 
 type
   { componente do botão }
-  TMRVButtonMDL = class(TLayout, IMRVButtonMDL, IFont, ITextSettings, ICaption)
-  private
+  TMRVButtonMDL = class sealed(TControl, IMRVButtonMDL, IFont, ITextSettings,
+    ICaption)
+  strict private
+    { botão }
+    FButtonMDL: IMRVButtonMDL;
     { tipo e estilo }
     FButtonType: TMRVButtonMDLType;
     FButtonStyle: TMRVButtonMDLStyle;
+    { propriedades da interface IMRVButtonMDL}
+    FRipple: Boolean;
+    FEnabled: Boolean;
+    FPrimaryColor: TAlphaColor;
+    FAccentColor: TAlphaColor;
     FButtonColor: TMRVColorMDLType;
-    { botão }
-    FButtonMDL: IMRVButtonMDL;
+    FBackgroundStyle: TMRVBackgroundStyle;
+    FXRadius: Single;
+    FYRadius: Single;
+    { propriedades da interface ITextSettings }
+    FTextSettings: TTextSettings;
+    FStyledSettings: TStyledSettings;
+    { prporpiedades da interface ICaption }
+    FText: string;
+    { propriedades da font }
+    FFont: TFont;
+    FFontColor: TAlphaColor;
+    FVertTextAlign: TTextAlign;
+    FTextAlign: TTextAlign;
+    FWordWrap: Boolean;
+    FTrimming: TTextTrimming;
+    FPrefixStyle: TPrefixStyle;
+  private
     { métodos da classe }
     procedure InitButton;
     procedure FreeButtons;
@@ -83,11 +110,13 @@ type
   protected
     { método acionado quando o controle muda o Enabled }
     procedure EnabledChanged; override;
+    procedure AtualizarInformacoesBotao;
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
     function AddOnClickEvent(AEvent: TNotifyEvent): Boolean;
-  //published
+  published
+    { MDL Button }
     property ButtonType: TMRVButtonMDLType read GetButtonType write SetButtonType;
     property ButtonStyle: TMRVButtonMDLStyle read GetButtonStyle write SetButtonStyle;
     { propriedades da interface }
@@ -115,9 +144,23 @@ type
     property WordWrap: Boolean read GetWordWrap write SetWordWrap default False;
     property Trimming: TTextTrimming read GetTrimming write SetTrimming default TTextTrimming.None;
     property PrefixStyle: TPrefixStyle read GetPrefixStyle write SetPrefixStyle default TPrefixStyle.HidePrefix;
+    { propriedade do TControl }
+    property Width;
+    property Size;
+    property Height;
+    property Position;
+    property Align;
+    property Visible;
+    property Enabled;
+    property CanFocus;
+    property TabOrder;
+    property TabStop;
   end;
 
 implementation
+
+uses
+  FMX.Forms;
 
 { TMRVButtonMDL }
 
@@ -126,33 +169,68 @@ begin
   Result := FButtonMDL.AddOnClickEvent(AEvent);
 end;
 
+procedure TMRVButtonMDL.AtualizarInformacoesBotao;
+begin
+  Self.Enabled := True;
+  Self.EnabledChanged;
+  FButtonMDL.SetParentControl(Self);
+  (FButtonMDL as IAlignableObject).Align := TAlignLayout.Client;
+  { propriedades da interface IMRVButtonMDL}
+  FButtonMDL.Ripple := FRipple;
+  FButtonMDL.Enabled := FEnabled;
+  FButtonMDL.PrimaryColor := FPrimaryColor;
+  FButtonMDL.AccentColor := FAccentColor;
+  FButtonMDL.ButtonColor := FButtonColor;
+  FButtonMDL.BackgroundStyle := FBackgroundStyle;
+  FButtonMDL.XRadius := FXRadius;
+  FButtonMDL.YRadius := FYRadius;
+  { propriedades da interface ITextSettings }
+  (FButtonMDL as ITextSettings).TextSettings := FTextSettings;
+  (FButtonMDL as ITextSettings).StyledSettings := FStyledSettings;
+  { prporpiedades da interface ICaption }
+  (FButtonMDL as ICaption).Text := FText;
+  { propriedades da font }
+  if Assigned(FFont) then
+  begin
+    (FButtonMDL as IFont).Font.Assign(FFont);
+  end;
+  (FButtonMDL as IFont).Font.Style := (FButtonMDL as IFont).Font.Style +
+    [TFontStyle.fsBold];
+  (FButtonMDL as IFont).FontColor := FFontColor;
+  (FButtonMDL as IFont).VertTextAlign := FVertTextAlign;
+  (FButtonMDL as IFont).TextAlign := FTextAlign;
+  (FButtonMDL as IFont).WordWrap := FWordWrap;
+  (FButtonMDL as IFont).Trimming := FTrimming;
+  (FButtonMDL as IFont).PrefixStyle := FPrefixStyle;
+end;
+
 constructor TMRVButtonMDL.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
-  Self.HitTest := False;
   Self.Size.Width := 90;
   Self.Size.Height := 30;
+  Self.Align := TAlignLayout.None;
+  Self.CanFocus := True;
+  Self.HitTest := True;
+  Self.Enabled := True;
   { inicializa o tipo e o estilo }
   FButtonType := btRaised;
   FButtonStyle := bsFlat;
   FButtonColor := clNone;
-  { só cria componentes se não estiver em tempo de design }
-  if not (csDesigning in ComponentState) then
-  begin
-    { inicializa o botão de acordo com as indicações }
-    Self.InitButton;
-    { informa o parent }
-    FButtonMDL.SetParentControl(Self);
-    { background }
-    FButtonMDL.BackgroundStyle := bsDark;
-    { informa que o objeto trabalha com alinhamento }
-    (FButtonMDL as IAlignableObject).Align := TAlignLayout.Client;
-  end;
-  Self.Align := TAlignLayout.None;
+  { inicializa o botão de acordo com as indicações }
+  Self.InitButton;
+  { informa o parent }
+  FButtonMDL.SetParentControl(Self);
+  { background }
+  FButtonMDL.BackgroundStyle := bsDark;
+  (FButtonMDL as IFont).Font.Style := [TFontStyle.fsBold];
+  { informa que o objeto trabalha com alinhamento }
+  (FButtonMDL as IAlignableObject).Align := TAlignLayout.Client;
 end;
 
 destructor TMRVButtonMDL.Destroy;
 begin
+  { libera os botões }
   Self.FreeButtons;
   { finaliza wrapper }
   inherited;
@@ -161,13 +239,18 @@ end;
 procedure TMRVButtonMDL.EnabledChanged;
 begin
   inherited;
+  FEnabled := Self.Enabled;
   { executa o EnabledChange do objeto instaciado }
-  FButtonMDL.Enabled := Self.Enabled;
+  FButtonMDL.Enabled := FEnabled;
 end;
 
 procedure TMRVButtonMDL.FreeButtons;
 begin
   { aterra }
+  if Assigned(FButtonMDL) then
+  begin
+    TComponent(FButtonMDL).DisposeOf;
+  end;
   FButtonMDL := nil;
 end;
 
@@ -183,15 +266,9 @@ begin
     btRaised:
      { de acordo com o estilo }
       case FButtonStyle of
-        { flat, plain }
-        bsFlat:
-        begin
-          { de acordo a cor }
-          case FButtonColor of
-            clNone, clColored, clAccent:
-              FButtonMDL := coFactoryRaisedFlatButtonMDL.Create(Self);
-          end;
-        end;
+        { flat }
+        bsFlat: FButtonMDL := coFactoryRaisedFlatButtonMDL.Create(Self);
+        { plain }
         bsPlain: ;
       end;
     btFab:
@@ -200,8 +277,17 @@ begin
       ;
     btIcon:
       ;
-  else
+  end;
+  { enquanto os outros tipos não estão disponíveis }
+  if not(Assigned(FButtonMDL)) then
+  begin
     FButtonMDL := coFactoryRaisedFlatButtonMDL.Create(Self);
+  end;
+  { informar os dados }
+  if Assigned(FButtonMDL) then
+  begin
+    { atualiza as informações do botão }
+    Self.AtualizarInformacoesBotao;
   end;
 end;
 
@@ -212,13 +298,12 @@ end;
 
 function TMRVButtonMDL.GetBackgroundStyle: TMRVBackgroundStyle;
 begin
-  Result := FButtonMDL.BackgroundStyle;
+  Result := FBackgroundStyle;
 end;
 
 function TMRVButtonMDL.GetButtonColor: TMRVColorMDLType;
 begin
   Result := FButtonColor;
-  FButtonMDL.ButtonColor := FButtonColor;
 end;
 
 function TMRVButtonMDL.GetButtonStyle: TMRVButtonMDLStyle;
@@ -318,12 +403,14 @@ end;
 
 procedure TMRVButtonMDL.SetAccentColor(const Value: TAlphaColor);
 begin
-  FButtonMDL.AccentColor := Value;
+  FAccentColor := Value;
+  FButtonMDL.AccentColor := FAccentColor;
 end;
 
 procedure TMRVButtonMDL.SetBackgroundStyle(const Value: TMRVBackgroundStyle);
 begin
-  FButtonMDL.BackgroundStyle := Value;
+  FBackgroundStyle := Value;
+  FButtonMDL.BackgroundStyle := FBackgroundStyle;
 end;
 
 procedure TMRVButtonMDL.SetButtonColor(const Value: TMRVColorMDLType);
@@ -333,27 +420,48 @@ begin
 end;
 
 procedure TMRVButtonMDL.SetButtonStyle(const Value: TMRVButtonMDLStyle);
+var
+  LButtonStyle: TMRVButtonMDLStyle;
 begin
+  LButtonStyle := FButtonStyle;
   FButtonStyle := Value;
+  { é um novo botão }
+  if (LButtonStyle <> FButtonStyle) then
+  begin
+    Self.InitButton;
+  end;
 end;
 
 procedure TMRVButtonMDL.SetButtonType(const Value: TMRVButtonMDLType);
+var
+  LButtonType: TMRVButtonMDLType;
 begin
+  LButtonType := FButtonType;
   FButtonType := Value;
+  { é um novo botão }
+  if (LButtonType <> FButtonType) then
+  begin
+    Self.InitButton;
+  end;
 end;
 
 procedure TMRVButtonMDL.SetFont(const Value: TFont);
 begin
-  (FButtonMDL as IFont).Font := Value;
+  FFont := Value;
+  { obriga negrito para o estilo da fonte }
+  FFont.Style := FFont.Style + [TFontStyle.fsBold];
+  (FButtonMDL as IFont).Font := FFont;
 end;
 
 procedure TMRVButtonMDL.SetFontColor(const Value: TAlphaColor);
 begin
-  (FButtonMDL as IFont).FontColor := Value;
+  FFontColor := Value;
+  (FButtonMDL as IFont).FontColor := FFontColor;
 end;
 
 procedure TMRVButtonMDL.SetOnClickEvents(const Value: TList<TNotifyEvent>);
 begin
+  { passa os dados adiante }
   FButtonMDL.OnClickEvents := Value;
 end;
 
@@ -364,62 +472,74 @@ end;
 
 procedure TMRVButtonMDL.SetPrefixStyle(const Value: TPrefixStyle);
 begin
-  (FButtonMDL as IFont).PrefixStyle := Value;
+  FPrefixStyle := Value;
+  (FButtonMDL as IFont).PrefixStyle := FPrefixStyle;
 end;
 
 procedure TMRVButtonMDL.SetPrimaryColor(const Value: TAlphaColor);
 begin
-  FButtonMDL.PrimaryColor := Value;
+  FPrimaryColor := Value;
+  FButtonMDL.PrimaryColor := FPrimaryColor;
 end;
 
 procedure TMRVButtonMDL.SetRipple(const Value: Boolean);
 begin
-  FButtonMDL.Ripple := Value;
+  FRipple := Value;
+  FButtonMDL.Ripple := FRipple;
 end;
 
 procedure TMRVButtonMDL.SetStyledSettings(const Value: TStyledSettings);
 begin
-  (FButtonMDL as ITextSettings).StyledSettings := Value;
+  FStyledSettings := Value;
+  (FButtonMDL as ITextSettings).StyledSettings := FStyledSettings;
 end;
 
 procedure TMRVButtonMDL.SetText(const Value: string);
 begin
-  (FButtonMDL as ICaption).Text := Value;
+  FText := Value;
+  (FButtonMDL as ICaption).Text := FText;
 end;
 
 procedure TMRVButtonMDL.SetTextAlign(const Value: TTextAlign);
 begin
-  (FButtonMDL as IFont).TextAlign := Value;
+  FTextAlign := Value;
+  (FButtonMDL as IFont).TextAlign := FTextAlign;
 end;
 
 procedure TMRVButtonMDL.SetTextSettings(const Value: TTextSettings);
 begin
-  (FButtonMDL as ITextSettings).TextSettings := Value;
+  FTextSettings := Value;
+  (FButtonMDL as ITextSettings).TextSettings := FTextSettings;
 end;
 
 procedure TMRVButtonMDL.SetTrimming(const Value: TTextTrimming);
 begin
-  (FButtonMDL as IFont).Trimming := Value;
+  FTrimming := Value;
+  (FButtonMDL as IFont).Trimming := FTrimming;
 end;
 
 procedure TMRVButtonMDL.SetVertTextAlign(const Value: TTextAlign);
 begin
-  (FButtonMDL as IFont).VertTextAlign := Value;
+  FVertTextAlign := Value;
+  (FButtonMDL as IFont).VertTextAlign := FVertTextAlign;
 end;
 
 procedure TMRVButtonMDL.SetWordWrap(const Value: Boolean);
 begin
-  (FButtonMDL as IFont).WordWrap := Value;
+  FWordWrap:= Value;
+  (FButtonMDL as IFont).WordWrap := FWordWrap;
 end;
 
 procedure TMRVButtonMDL.SetXRadius(const Value: Single);
 begin
-  FButtonMDL.XRadius := Value;
+  FXRadius := Value;
+  FButtonMDL.XRadius := FXRadius;
 end;
 
 procedure TMRVButtonMDL.SetYRadius(const Value: Single);
 begin
-  FButtonMDL.YRadius := Value;
+  FYRadius := Value;
+  FButtonMDL.YRadius := FYRadius;
 end;
 
 function TMRVButtonMDL.TextStored: Boolean;

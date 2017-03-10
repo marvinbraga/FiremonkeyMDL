@@ -2940,29 +2940,21 @@ object FormPOCButtonsMDL: TFormPOCButtonsMDL
     EE7B1BF8E1F740373D99A65B5369DAFEBBC494F11ABC3C60497C0DDF1D3E3B60
     02EEDC68D571867BC567054F5253FAFF011BD4161816B8EB540000000049454E
     44AE426082}
-  Fill.Bitmap.WrapMode = Tile
+  Fill.Bitmap.WrapMode = TileStretch
   Fill.Kind = Bitmap
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
   OnCreate = FormCreate
   DesignerMasterStyle = 0
-  object btnMDL: TMRVButtonMDL
-    Position.X = 16.000000000000000000
-    Position.Y = 16.000000000000000000
-    Size.Width = 120.000000000000000000
-    Size.Height = 30.000000000000000000
-    Size.PlatformDefault = False
-    TabOrder = 0
-  end
   object btnTeste: TButton
     Position.X = 16.000000000000000000
     Position.Y = 56.000000000000000000
     Size.Width = 120.000000000000000000
     Size.Height = 30.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 1
-    Text = 'btnTeste'
+    TabOrder = 0
+    Text = 'BUTTON FMX'
   end
   object lblMensagem: TLabel
     Anchors = [akLeft, akTop, akRight]
@@ -2980,7 +2972,7 @@ object FormPOCButtonsMDL: TFormPOCButtonsMDL
   object lblCor: TLabel
     Anchors = [akTop, akRight]
     StyledSettings = [Family, Size, Style]
-    Position.X = 197.000000000000000000
+    Position.X = 189.000000000000000000
     Position.Y = 104.000000000000000000
     TextSettings.FontColor = claAzure
     Text = 'Cor: 0'
@@ -2990,12 +2982,12 @@ object FormPOCButtonsMDL: TFormPOCButtonsMDL
     IsChecked = False
     Position.X = 341.000000000000000000
     Position.Y = 19.000000000000000000
-    TabOrder = 5
+    TabOrder = 2
     OnClick = swtRippleClick
     object lblRipple: TLabel
       Anchors = [akTop, akRight]
       StyledSettings = [Family, Size, Style]
-      Position.X = -146.000000000000000000
+      Position.X = -152.000000000000000000
       Position.Y = 5.000000000000000000
       TextSettings.FontColor = claAzure
       Text = 'Ativa o efeito Ripple'
@@ -3006,12 +2998,12 @@ object FormPOCButtonsMDL: TFormPOCButtonsMDL
     IsChecked = True
     Position.X = 341.000000000000000000
     Position.Y = 59.000000000000000000
-    TabOrder = 6
+    TabOrder = 3
     OnClick = swtEnabledClick
     object lblEnabled: TLabel
       Anchors = [akTop, akRight]
       StyledSettings = [Family, Size, Style]
-      Position.X = -146.000000000000000000
+      Position.X = -150.000000000000000000
       Position.Y = 5.000000000000000000
       TextSettings.FontColor = claAzure
       Text = 'Habilita o bot'#227'o'
@@ -3028,7 +3020,7 @@ object FormPOCButtonsMDL: TFormPOCButtonsMDL
     Size.Width = 76.000000000000000000
     Size.Height = 19.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 7
+    TabOrder = 4
     OnChange = trcColorChange
   end
   object swtCorPadrao: TSwitch
@@ -3036,12 +3028,12 @@ object FormPOCButtonsMDL: TFormPOCButtonsMDL
     IsChecked = False
     Position.X = 341.000000000000000000
     Position.Y = 139.000000000000000000
-    TabOrder = 4
+    TabOrder = 1
     OnClick = swtCorPadraoClick
     object lblCorPadrao: TLabel
       Anchors = [akTop, akRight]
       StyledSettings = [Family, Size, Style]
-      Position.X = -146.000000000000000000
+      Position.X = -150.000000000000000000
       Position.Y = 5.000000000000000000
       Size.Width = 131.000000000000000000
       Size.Height = 17.000000000000000000
@@ -3049,5 +3041,31 @@ object FormPOCButtonsMDL: TFormPOCButtonsMDL
       TextSettings.FontColor = claAzure
       Text = 'Atuvar cor padr'#227'o clara'
     end
+  end
+  object btnMDL: TMRVButtonMDL
+    ButtonType = btRaised
+    ButtonStyle = bsFlat
+    Ripple = False
+    PrimaryColor = claRoyalblue
+    AccentColor = claRed
+    ButtonColor = clNone
+    BackgroundStyle = bsDark
+    XRadius = 2.000000000000000000
+    YRadius = 2.000000000000000000
+    TextSettings.Font.StyleExt = {00070000000000000004000000}
+    TextSettings.HorzAlign = Center
+    StyledSettings = []
+    Text = 'BUTTON MDL'
+    Font.StyleExt = {00070000000000000004000000}
+    TextAlign = Center
+    WordWrap = True
+    Trimming = Character
+    Size.Width = 121.000000000000000000
+    Size.Height = 33.000000000000000000
+    Size.PlatformDefault = False
+    Position.X = 16.000000000000000000
+    Position.Y = 16.000000000000000000
+    CanFocus = True
+    TabOrder = 5
   end
 end

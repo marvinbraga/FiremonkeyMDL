@@ -1,3 +1,7 @@
+{ /------------------------------------------------------------------/
+  / Por Marcus Vinicius Braga - Marvinbraga Youtube Channel - Brazil /
+  /------------------------------------------------------------------/  }
+
 unit uMDLButtons;
 
 interface
@@ -9,6 +13,7 @@ uses
   System.UITypes,
   System.Classes,
   System.Variants,
+  System.Generics.Collections,
   { firemonkey }
   FMX.Types,
   FMX.Controls,
@@ -18,13 +23,16 @@ uses
   FMX.Controls.Presentation,
   FMX.StdCtrls,
   FMX.Layouts,
+  FMX.Effects,
+  FMX.Objects,
+  FMX.Ani,
   { marvin }
   Marvin.Comps.MDL.Intf.Button,
-  Marvin.Comps.MDL.Buttons;
+  Marvin.Comps.MDL.Buttons,
+  Marvin.Comps.MDL.Frame.Button.Flat;
 
 type
   TFormPOCButtonsMDL = class(TForm)
-    btnMDL: TMRVButtonMDL;
     btnTeste: TButton;
     lblRipple: TLabel;
     lblEnabled: TLabel;
@@ -35,6 +43,7 @@ type
     trcColor: TTrackBar;
     swtCorPadrao: TSwitch;
     lblCorPadrao: TLabel;
+    btnMDL: TMRVButtonMDL;
     procedure FormCreate(Sender: TObject);
     procedure swtEnabledClick(Sender: TObject);
     procedure swtRippleClick(Sender: TObject);
@@ -70,16 +79,6 @@ end;
 
 procedure TFormPOCButtonsMDL.InitButton;
 begin
-  { inicializa os textos dos botões }
-  btnMDL.Text := 'BUTTON MDL';
-  btnTeste.Text := 'BUTTON FMX';
-  { bordas arredondadas }
-  //btnMDL.XRadius := 5;
-  //btnMDL.YRadius := 5;
-  { cor }
-  btnMDL.PrimaryColor := TAlphaColors.Aqua;
-  btnMDL.AccentColor := TAlphaColors.Yellow;
-  btnMDL.BackgroundStyle := bsDark;
   { eventos }
   btnMDL.AddOnClickEvent(InternalOnClick);
   btnTeste.OnClick := InternalOnClick;

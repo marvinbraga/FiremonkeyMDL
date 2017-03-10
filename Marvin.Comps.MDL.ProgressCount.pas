@@ -1,3 +1,7 @@
+{ /------------------------------------------------------------------/
+  / Por Marcus Vinicius Braga - Marvinbraga Youtube Channel - Brazil /
+  /------------------------------------------------------------------/  }
+
 unit Marvin.Comps.MDL.ProgressCount;
 
 interface
@@ -12,7 +16,7 @@ uses
   System.UITypes;
 
 type
-  TMRVProgressCount = class(TLayout, IMRVProgressCount)
+  TMRVProgressCount = class(TControl, IMRVProgressCount)
   private
     FProgressCount: IMRVProgressCount;
     function GetMax: Single;
@@ -51,7 +55,7 @@ type
     destructor Destroy; override;
     procedure Play;
     procedure Stop;
-  //published
+  published
     { propriedades }
     property DefaultColor: TAlphaColor read GetDefaultColor write SetDefaultColor;
     property BackgroundStyle: TMRVBackgrpoundStyle read GetBackgroundStyle write SetBackgroundStyle;
@@ -66,6 +70,15 @@ type
     property UseRandomColors: Boolean read GetUseRandomColors write SetUseRandomColors;
     property IsRoundLines: Boolean read GetIsRoundLines write SetIsRoundLines;
     property OnUpdateStatus: TOnUpdateStatus read GetOnUpdateStatus write SetOnUpdateStatus;
+    { propriedade do TControl }
+    property Width;
+    property Size;
+    property Height;
+    property Position;
+    property Align;
+    property Visible;
+    property Enabled;
+    property CanFocus;
   end;
 
 implementation
@@ -75,13 +88,9 @@ begin
   inherited;
   Self.Width := 200;
   Self.Height := 200;
-  { só cria componentes se não estiver em tempo de design }
-  if not (csDesigning in ComponentState) then
-  begin
-    { recupera um objeto que implementa a interface }
-    FProgressCount := coMRVProgressCount.Create(Self);
-    FProgressCount.SetParentControl(Self);
-  end;
+  { recupera um objeto que implementa a interface }
+  FProgressCount := coMRVProgressCount.Create(Self);
+  FProgressCount.SetParentControl(Self);
   { informa que o objeto trabalha com alinhamento }
   (FProgressCount as IAlignableObject).Align := TAlignLayout.Client;
 end;
@@ -89,6 +98,10 @@ end;
 destructor TMRVProgressCount.Destroy;
 begin
   { aterra }
+  if Assigned(FProgressCount) then
+  begin
+    TComponent(FProgressCount).Free;
+  end;
   FProgressCount := nil;
   { finaliza wrapper }
   inherited;

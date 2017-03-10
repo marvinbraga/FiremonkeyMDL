@@ -1,3 +1,7 @@
+{ /------------------------------------------------------------------/
+  / Por Marcus Vinicius Braga - Marvinbraga Youtube Channel - Brazil /
+  /------------------------------------------------------------------/  }
+
 unit Marvin.Comps.MDL.Frame.Button.Flat;
 
 interface
@@ -112,6 +116,8 @@ type
     function GetBackgroundStyle: TMRVBackgroundStyle;
     procedure SetBackgroundStyle(const Value: TMRVBackgroundStyle);
     procedure UpdateDefaultColor;
+    procedure AdjustOpacityEffect(AClick: Single; AMouseMove: Single;
+      ARipple: Single);
   protected
     function MaxValue(AValue1: Single; AValue2: Single): Single;
     function GetEnabled: Boolean;
@@ -204,10 +210,8 @@ begin
   Self.UpdateDefaultColor;
   { ajusta o Ripple }
   crcRipple.Fill.Color := FDefaultColor;
-  { ajusta os níveis de opacidade dos efeitos }
-  FloatAnimationClick.StopValue := 0.5;
-  FloatAnimationOpacity.StopValue := 0.3;
-  FloatAnimationRippleOpacity.StopValue := 1;
+  { ajusta a opacidade dos efeitos }
+  Self.AdjustOpacityEffect(0.7, 0.4, 1);
 end;
 
 procedure TfraMRVRaisedFlatButtonMDL.ConfigDarkColor;
@@ -219,9 +223,7 @@ begin
   { ajusta o Ripple }
   crcRipple.Fill.Color := FDefaultColor;
   { ajusta os níveis de opacidade dos efeitos }
-  FloatAnimationClick.StopValue := 0.4;
-  FloatAnimationOpacity.StopValue := 0.2;
-  FloatAnimationRippleOpacity.StopValue := 1;
+  Self.AdjustOpacityEffect(0.4, 0.2, 1);
 end;
 
 constructor TfraMRVRaisedFlatButtonMDL.Create(AOwner: TComponent);
@@ -229,6 +231,24 @@ var
   LComparer: TNotifyEventComparer;
 begin
   inherited Create(AOwner);
+  { frame não vai ser salvo no arquivo .XFM }
+  Self.Stored := False;
+  { controle bloqueado em design time }
+  Self.Locked := True;
+  { desabilita o clique }
+  Self.HitTest := False;
+  { ret }
+  retButton.Stored := False;
+  retButton.Locked := True;
+  retButton.HitTest := True;
+  { label }
+  lblText.Stored := False;
+  lblText.Locked := True;
+  lblText.HitTest := False;
+  { círculo }
+  crcRipple.Stored := False;
+  crcRipple.Locked := True;
+  crcRipple.HitTest := False;
   { cria multieventos }
   LComparer := TNotifyEventComparer.Create;
   FOnClickEvents := TList<TNotifyEvent>.Create(LComparer);
@@ -516,6 +536,15 @@ begin
   Self.Parent := AParent;
 end;
 
+procedure TfraMRVRaisedFlatButtonMDL.AdjustOpacityEffect(AClick: Single;
+  AMouseMove: Single; ARipple: Single);
+begin
+  { ajusta os níveis de opacidade dos efeitos }
+  FloatAnimationClick.StopValue := AClick;
+  FloatAnimationOpacity.StopValue := AMouseMove;
+  FloatAnimationRippleOpacity.StopValue := ARipple;
+end;
+
 procedure TfraMRVRaisedFlatButtonMDL.UpdateDefaultColor;
 begin
   { cores dos objetos }
@@ -570,6 +599,8 @@ begin
     { sincroniza }
     TThread.Synchronize(TThread.CurrentThread,
       procedure
+      var
+        LTamanho: Single;
       begin
         { centralizar o círculo com a posição do clique }
         crcRipple.Position.X := X - (crcRipple.Size.Width / 2);
@@ -577,8 +608,9 @@ begin
         { exibe o círculo }
         crcRipple.Visible := True;
         { configura o tamanho final do círculo }
-        FloatAnimationRippleSize.StopValue := Self.MaxValue(retButton.Size.Width,
-          retButton.Size.Width) + 10;
+        LTamanho := Self.MaxValue(retButton.Size.Width,
+          retButton.Size.Height) + 20;
+        FloatAnimationRippleSize.StopValue := LTamanho * 1.2;
         { sincroniza a duração das animações }
         FloatAnimationRippleSize.Duration := FloatAnimationRippleOpacity.Duration;
         { anicia as animações }

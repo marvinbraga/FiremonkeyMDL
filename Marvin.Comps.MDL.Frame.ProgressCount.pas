@@ -1,3 +1,7 @@
+{ /------------------------------------------------------------------/
+  / Por Marcus Vinicius Braga - Marvinbraga Youtube Channel - Brazil /
+  /------------------------------------------------------------------/  }
+
 unit Marvin.Comps.MDL.Frame.ProgressCount;
 
 interface
@@ -31,26 +35,26 @@ type
 
   { classe que implementa o objeto de progress count }
   TfraMarvinProgressCount = class(TFrame, IMRVProgressCount)
-    retBackground: TRectangle;
     arcValue1: TArc;
     arcValue2: TArc;
     arcValue3: TArc;
     arcValue4: TArc;
-    crcProgress: TCircle;
     arcProgress: TArc;
-    FloatAnimationProgressValue: TFloatAnimation;
+    crcProgress: TCircle;
+    retMessage: TRectangle;
+    retBackground: TRectangle;
+    lblMessage: TLabel;
     lblProgress: TLabel;
     sdwProgress: TShadowEffect;
+    sdwArc1: TShadowEffect;
+    sdwMessage: TShadowEffect;
+    FloatAnimationProgressValue: TFloatAnimation;
     FloatAnimationValue4: TFloatAnimation;
     FloatAnimationValue3: TFloatAnimation;
     FloatAnimationValue2: TFloatAnimation;
-    sdwArc1: TShadowEffect;
     FloatAnimationWidth: TFloatAnimation;
     FloatAnimationHeight: TFloatAnimation;
     FloatAnimationValue1: TFloatAnimation;
-    retMessage: TRectangle;
-    lblMessage: TLabel;
-    sdwMessage: TShadowEffect;
     { eventos dos efeitos }
     procedure FloatAnimationHeightFinish(Sender: TObject);
     procedure FloatAnimationValue1Process(Sender: TObject);
@@ -152,8 +156,28 @@ end;
 { TfraMarvinProgressCount }
 
 constructor TfraMarvinProgressCount.Create(AOwner: TComponent);
+
+  procedure LConfigControl(AControl: TControl);
+  begin
+    AControl.Locked := True;
+    AControl.Stored := False;
+    AControl.HitTest := False;
+  end;
+
+
 begin
   inherited;
+  LConfigControl(arcValue1);
+  LConfigControl(arcValue2);
+  LConfigControl(arcValue3);
+  LConfigControl(arcValue4);
+  LConfigControl(arcProgress);
+  LConfigControl(crcProgress);
+  LConfigControl(retMessage);
+  LConfigControl(retBackground);
+  LConfigControl(lblMessage);
+  LConfigControl(lblProgress);
+
   FBackgroundStyle := TMRVBackgrpoundStyle.bsClear;
   Self.Init;
   Self.Min := 0;

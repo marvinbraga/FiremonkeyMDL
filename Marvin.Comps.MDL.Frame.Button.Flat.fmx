@@ -1,11 +1,14 @@
 object fraMRVRaisedFlatButtonMDL: TfraMRVRaisedFlatButtonMDL
+  ClipChildren = True
+  Locked = True
+  HitTest = False
   Size.Width = 90.000000000000000000
   Size.Height = 30.000000000000000000
   Size.PlatformDefault = False
   object retButton: TRectangle
     Align = Client
-    ClipChildren = True
     Fill.Color = claBlack
+    Locked = True
     Opacity = 0.000000000000000000
     Size.Width = 90.000000000000000000
     Size.Height = 30.000000000000000000

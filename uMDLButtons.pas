@@ -29,7 +29,7 @@ uses
   { marvin }
   Marvin.Comps.MDL.Intf.Button,
   Marvin.Comps.MDL.Buttons,
-  Marvin.Comps.MDL.Frame.Button.Flat;
+  Marvin.Comps.MDL.Frame.Button.Flat, FMX.Filter.Effects;
 
 type
   TFormPOCButtonsMDL = class(TForm)
@@ -44,6 +44,9 @@ type
     swtCorPadrao: TSwitch;
     lblCorPadrao: TLabel;
     btnMDL: TMRVButtonMDL;
+    retPainel: TRectangle;
+    sdw1: TShadowEffect;
+    GaussianBlurEffect1: TGaussianBlurEffect;
     procedure FormCreate(Sender: TObject);
     procedure swtEnabledClick(Sender: TObject);
     procedure swtRippleClick(Sender: TObject);

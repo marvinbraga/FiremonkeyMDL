@@ -155,6 +155,8 @@ type
     property CanFocus;
     property TabOrder;
     property TabStop;
+    property Margins;
+    property Padding;
   end;
 
 implementation

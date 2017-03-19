@@ -8,9 +8,10 @@ uses
 {$R *.res}
 
 begin
-  {$WARN SYMBOL_PLATFORM OFF}
-  //ReportMemoryLeaksOnShutdown := DebugHook <> 0;
-  {$WARN SYMBOL_PLATFORM ON}
+  {$IFDEF DEBUG}
+    ReportMemoryLeaksOnShutdown := True;
+  {$ENDIF}
+
   Application.Initialize;
   Application.CreateForm(TFormProgressCountApplicationPOC, FormProgressCountApplicationPOC);
   Application.Run;

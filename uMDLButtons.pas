@@ -29,7 +29,7 @@ uses
   { marvin }
   Marvin.Comps.MDL.Intf.Button,
   Marvin.Comps.MDL.Buttons,
-  Marvin.Comps.MDL.Frame.Button.Flat, FMX.Filter.Effects;
+  FMX.Filter.Effects;
 
 type
   TFormPOCButtonsMDL = class(TForm)
@@ -41,17 +41,19 @@ type
     swtRipple: TSwitch;
     swtEnabled: TSwitch;
     trcColor: TTrackBar;
-    swtCorPadrao: TSwitch;
-    lblCorPadrao: TLabel;
     btnMDL: TMRVButtonMDL;
     retPainel: TRectangle;
     sdw1: TShadowEffect;
     GaussianBlurEffect1: TGaussianBlurEffect;
+    retBtnDark: TRectangle;
+    sdwDark: TShadowEffect;
+    retClean: TRectangle;
+    btnMDLClean: TMRVButtonMDL;
+    sdwClean: TShadowEffect;
     procedure FormCreate(Sender: TObject);
     procedure swtEnabledClick(Sender: TObject);
     procedure swtRippleClick(Sender: TObject);
     procedure trcColorChange(Sender: TObject);
-    procedure swtCorPadraoClick(Sender: TObject);
   private
     { Private declarations }
     procedure InitButton;
@@ -84,6 +86,7 @@ procedure TFormPOCButtonsMDL.InitButton;
 begin
   { eventos }
   btnMDL.AddOnClickEvent(InternalOnClick);
+  btnMDLClean.AddOnClickEvent(InternalOnClick);
   btnTeste.OnClick := InternalOnClick;
 end;
 
@@ -103,22 +106,11 @@ begin
   end;
 end;
 
-procedure TFormPOCButtonsMDL.swtCorPadraoClick(Sender: TObject);
-begin
-  if swtCorPadrao.IsChecked then
-  begin
-    btnMDL.BackgroundStyle := bsClean;
-  end
-  else
-  begin
-    btnMDL.BackgroundStyle := bsDark;
-  end;
-end;
-
 procedure TFormPOCButtonsMDL.swtEnabledClick(Sender: TObject);
 begin
   { ajusta o acesso aos botões }
   btnMDL.Enabled := swtEnabled.IsChecked;
+  btnMDLClean.Enabled := swtEnabled.IsChecked;
   btnTeste.Enabled := btnMDL.Enabled;
 end;
 
@@ -126,12 +118,14 @@ procedure TFormPOCButtonsMDL.swtRippleClick(Sender: TObject);
 begin
   { efeito Ripple }
   btnMDL.Ripple := swtRipple.IsChecked;
+  btnMDLClean.Ripple := swtRipple.IsChecked;
 end;
 
 procedure TFormPOCButtonsMDL.trcColorChange(Sender: TObject);
 begin
   { altera a cor do botão }
   btnMDL.ButtonColor := TMRVColorMDLType(Trunc(trcColor.Value));
+  btnMDLClean.ButtonColor := TMRVColorMDLType(Trunc(trcColor.Value));
   lblCor.Text := 'Cor: ' + trcColor.Value.ToString;
 end;
 

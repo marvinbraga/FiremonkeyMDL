@@ -19,7 +19,7 @@ uses
   FMX.Graphics,
   FMX.ActnList,
   { marvin }
-  Marvin.Comps.MDL.Frame.Button.Flat,
+  Marvin.Comps.MDL.Frame.Button.RaisedFlat,
   Marvin.Comps.MDL.Intf.Button;
 
 type
@@ -28,6 +28,7 @@ type
     ICaption)
   strict private
     { botão }
+    [WeakAttribute]
     FButtonMDL: IMRVButtonMDL;
     { tipo e estilo }
     FButtonType: TMRVButtonMDLType;

@@ -18,6 +18,7 @@ uses
 type
   TMRVProgressCount = class(TControl, IMRVProgressCount)
   private
+    [WeakAttribute]
     FProgressCount: IMRVProgressCount;
     function GetMax: Single;
     function GetMin: Single;

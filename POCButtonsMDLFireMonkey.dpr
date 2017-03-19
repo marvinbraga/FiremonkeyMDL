@@ -8,6 +8,10 @@ uses
 {$R *.res}
 
 begin
+  {$IFDEF DEBUG}
+    ReportMemoryLeaksOnShutdown := True;
+  {$ENDIF}
+
   Application.Initialize;
   Application.CreateForm(TFormPOCButtonsMDL, FormPOCButtonsMDL);
   Application.Run;

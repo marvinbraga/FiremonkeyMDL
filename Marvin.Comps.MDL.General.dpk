@@ -33,7 +33,7 @@ requires
 
 contains
   Marvin.Comps.MDL.Buttons in 'Marvin.Comps.MDL.Buttons.pas',
-  Marvin.Comps.MDL.Frame.Button.Flat in 'Marvin.Comps.MDL.Frame.Button.Flat.pas' {fraMRVRaisedFlatButtonMDL: TFrame},
+  Marvin.Comps.MDL.Frame.Button.RaisedFlat in 'Marvin.Comps.MDL.Frame.Button.RaisedFlat.pas' {fraMRVRaisedFlatButtonMDL: TFrame},
   Marvin.Comps.MDL.Frame.ProgressCount in 'Marvin.Comps.MDL.Frame.ProgressCount.pas' {fraMarvinProgressCount: TFrame},
   Marvin.Comps.MDL.Intf.Button in 'Marvin.Comps.MDL.Intf.Button.pas',
   Marvin.Comps.MDL.Intf.ProgressCount in 'Marvin.Comps.MDL.Intf.ProgressCount.pas',

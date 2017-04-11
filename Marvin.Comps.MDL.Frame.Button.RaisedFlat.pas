@@ -57,8 +57,8 @@ type
     procedure retButtonClick(Sender: TObject);
     procedure FloatAnimationRippleOpacityFinish(Sender: TObject);
     procedure FloatAnimationRippleSizeProcess(Sender: TObject);
-    procedure retButtonMouseDown(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Single);
+    procedure retButtonMouseDown(Sender: TObject; Button: TMouseButton; Shift:
+      TShiftState; X, Y: Single);
     procedure FloatAnimationOpacityProcess(Sender: TObject);
   strict private
     FOnClickEvents: TList<TNotifyEvent>;
@@ -116,8 +116,7 @@ type
     function GetBackgroundStyle: TMRVBackgroundStyle;
     procedure SetBackgroundStyle(const Value: TMRVBackgroundStyle);
     procedure UpdateDefaultColor;
-    procedure AdjustOpacityEffect(AClick: Single; AMouseMove: Single;
-      ARipple: Single);
+    procedure AdjustOpacityEffect(AClick: Single; AMouseMove: Single; ARipple: Single);
   protected
     function MaxValue(AValue1: Single; AValue2: Single): Single;
     function GetEnabled: Boolean;
@@ -134,17 +133,23 @@ type
     property DefaultTextSettings: TTextSettings read GetDefaultTextSettings;
     property TextSettings: TTextSettings read GetTextSettings write SetTextSettings;
     property ResultingTextSettings: TTextSettings read GetResultingTextSettings;
-    property StyledSettings: TStyledSettings read GetStyledSettings write SetStyledSettings;
+    property StyledSettings: TStyledSettings read GetStyledSettings write
+      SetStyledSettings;
     { prporpiedades da interface ICaption }
     property Text: string read GetText write SetText stored TextStored;
     { propriedades da font }
     property Font: TFont read GetFont write SetFont;
-    property FontColor: TAlphaColor read GetFontColor write SetFontColor default TAlphaColorRec.Black;
-    property VertTextAlign: TTextAlign read GetVertTextAlign write SetVertTextAlign default TTextAlign.Center;
-    property TextAlign: TTextAlign read GetTextAlign write SetTextAlign default TTextAlign.Leading;
+    property FontColor: TAlphaColor read GetFontColor write SetFontColor default
+      TAlphaColorRec.Black;
+    property VertTextAlign: TTextAlign read GetVertTextAlign write
+      SetVertTextAlign default TTextAlign.Center;
+    property TextAlign: TTextAlign read GetTextAlign write SetTextAlign default
+      TTextAlign.Leading;
     property WordWrap: Boolean read GetWordWrap write SetWordWrap default False;
-    property Trimming: TTextTrimming read GetTrimming write SetTrimming default TTextTrimming.None;
-    property PrefixStyle: TPrefixStyle read GetPrefixStyle write SetPrefixStyle default TPrefixStyle.HidePrefix;
+    property Trimming: TTextTrimming read GetTrimming write SetTrimming default
+      TTextTrimming.None;
+    property PrefixStyle: TPrefixStyle read GetPrefixStyle write SetPrefixStyle
+      default TPrefixStyle.HidePrefix;
     { métodos da interface IMRVButtonMDL }
     procedure SetParentControl(const AParent: TFmxObject);
     { propriedades da interface IMRVButtonMDL}
@@ -153,27 +158,33 @@ type
     property PrimaryColor: TAlphaColor read GetPrimaryColor write SetPrimaryColor;
     property AccentColor: TAlphaColor read GetAccentColor write SetAccentColor;
     property ButtonColor: TMRVColorMDLType read GetButtonColor write SetButtonColor;
-    property BackgroundStyle: TMRVBackgroundStyle read GetBackgroundStyle write SetBackgroundStyle;
+    property BackgroundStyle: TMRVBackgroundStyle read GetBackgroundStyle write
+      SetBackgroundStyle;
     property XRadius: Single read GetXRadius write SetXRadius;
     property YRadius: Single read GetYRadius write SetYRadius;
     { eventos }
-    property OnClickEvents: TList<TNotifyEvent> read GetOnClickEvents write SetOnClickEvents;
+    property OnClickEvents: TList<TNotifyEvent> read GetOnClickEvents write
+      SetOnClickEvents;
   end;
 
 implementation
 
 {$R *.fmx}
 
-function TfraMRVRaisedFlatButtonMDL.AddOnClickEvent(
-  AEvent: TNotifyEvent): Boolean;
+uses
+  { embarcadero }
+  System.Threading;
+
+
+function TfraMRVRaisedFlatButtonMDL.AddOnClickEvent(AEvent: TNotifyEvent): Boolean;
 var
   LAchou, LResult: Boolean;
 begin
   LResult := False;
   { verifica se o evento já foi incluído }
-  LAchou := FOnClickEvents.Contains(AEvent);
+  LAchou := FOnClickEvents.contains(AEvent);
   { se evento não foi incluído então inclui }
-  if not(LAchou) then
+  if not (LAchou) then
   begin
     FOnClickEvents.Add(AEvent);
     LResult := True;
@@ -187,11 +198,14 @@ begin
   { ajusta a cor do label }
   case FButtonColor of
     { preta }
-    clNone: lblText.FontColor := FDefaultColor;
+    clNone:
+      lblText.FontColor := FDefaultColor;
     { cor primária }
-    clColored: lblText.FontColor := FPrimaryColor;
+    clColored:
+      lblText.FontColor := FPrimaryColor;
     { cor secundária }
-    clAccent: lblText.FontColor := FAccentColor;
+    clAccent:
+      lblText.FontColor := FAccentColor;
   end;
 end;
 
@@ -266,8 +280,7 @@ begin
   sdwButton.UpdateParentEffects;
 end;
 
-procedure TfraMRVRaisedFlatButtonMDL.FloatAnimationRippleOpacityFinish(
-  Sender: TObject);
+procedure TfraMRVRaisedFlatButtonMDL.FloatAnimationRippleOpacityFinish(Sender: TObject);
 begin
   crcRipple.Visible := False;
 end;
@@ -404,7 +417,7 @@ end;
 procedure TfraMRVRaisedFlatButtonMDL.retButtonClick(Sender: TObject);
 begin
   { executa a animação }
-  if not(FRipple) then
+  if not (FRipple) then
   begin
     FloatAnimationClick.Start;
   end;
@@ -412,8 +425,8 @@ begin
   Self.ExecuteClickEvents(Sender);
 end;
 
-procedure TfraMRVRaisedFlatButtonMDL.retButtonMouseDown(Sender: TObject;
-  Button: TMouseButton; Shift: TShiftState; X, Y: Single);
+procedure TfraMRVRaisedFlatButtonMDL.retButtonMouseDown(Sender: TObject; Button:
+  TMouseButton; Shift: TShiftState; X, Y: Single);
 begin
   if FRipple then
   begin
@@ -451,19 +464,19 @@ begin
   FAccentColor := Value;
 end;
 
-procedure TfraMRVRaisedFlatButtonMDL.SetBackgroundStyle(
-  const Value: TMRVBackgroundStyle);
+procedure TfraMRVRaisedFlatButtonMDL.SetBackgroundStyle(const Value: TMRVBackgroundStyle);
 begin
   FBackgroundStyle := Value;
   { ajusta os fundos }
   case FBackgroundStyle of
-    bsDark: Self.ConfigDarkColor;
-    bsClean: Self.ConfigCleanColor;
+    bsDark:
+      Self.ConfigDarkColor;
+    bsClean:
+      Self.ConfigCleanColor;
   end;
 end;
 
-procedure TfraMRVRaisedFlatButtonMDL.SetButtonColor(
-  const Value: TMRVColorMDLType);
+procedure TfraMRVRaisedFlatButtonMDL.SetButtonColor(const Value: TMRVColorMDLType);
 begin
   FButtonColor := Value;
   { altera a cor do controle }
@@ -512,8 +525,7 @@ begin
   retButton.YRadius := Value;
 end;
 
-procedure TfraMRVRaisedFlatButtonMDL.SetOnClickEvents(
-  const Value: TList<TNotifyEvent>);
+procedure TfraMRVRaisedFlatButtonMDL.SetOnClickEvents(const Value: TList<TNotifyEvent>);
 var
   LOnClickEvent: TNotifyEvent;
 begin
@@ -554,27 +566,27 @@ end;
 
 procedure TfraMRVRaisedFlatButtonMDL.ExecuteClickEvents(Sender: TObject);
 var
-  LNotifyEvent: TNotifyEvent;
+  LCount: Integer;
 begin
-  { executa todos os eventos associados }
-  if (FOnClickEvents.Count > 0) then
-  begin
-    { aciona todos os eventos }
-    for LNotifyEvent in FOnClickEvents do
+  LCount := FOnClickEvents.Count - 1;
+  { executa em paralelo }
+  TParallel.For(0, LCount,
+    procedure(AIndex: Integer)
     begin
-      if Assigned(LNotifyEvent) then
-      begin
-        TThread.CreateAnonymousThread(procedure
+      { fila }
+      TThread.Queue(TThread.CurrentThread,
+        procedure
         begin
-          TThread.Synchronize(TThread.CurrentThread, procedure
-          begin
-            { executa thread por evento }
-            LNotifyEvent(Self.Parent);
-          end)
-        end).Start;
-      end;
-    end;
-  end;
+          TThread.Synchronize(TThread.CurrentThread,
+            procedure
+            var
+              LNotifyEvent: TNotifyEvent;
+            begin
+              LNotifyEvent := FOnClickEvents.Items[AIndex];
+              LNotifyEvent(Self.Parent);
+            end)
+        end)
+    end);
 end;
 
 procedure TfraMRVRaisedFlatButtonMDL.SetPrefixStyle(const Value: TPrefixStyle);
@@ -594,30 +606,30 @@ begin
     Exit;
   end;
   { inicia a thread }
-  TThread.CreateAnonymousThread(procedure
-  begin
+  TThread.CreateAnonymousThread(
+    procedure
+    begin
     { sincroniza }
-    TThread.Synchronize(TThread.CurrentThread,
-      procedure
-      var
-        LTamanho: Single;
-      begin
+      TThread.Synchronize(TThread.CurrentThread,
+        procedure
+        var
+          LTamanho: Single;
+        begin
         { centralizar o círculo com a posição do clique }
-        crcRipple.Position.X := X - (crcRipple.Size.Width / 2);
-        crcRipple.Position.Y := Y - (crcRipple.Size.Width / 2);
+          crcRipple.Position.X := X - (crcRipple.Size.Width / 2);
+          crcRipple.Position.Y := Y - (crcRipple.Size.Width / 2);
         { exibe o círculo }
-        crcRipple.Visible := True;
+          crcRipple.Visible := True;
         { configura o tamanho final do círculo }
-        LTamanho := Self.MaxValue(retButton.Size.Width,
-          retButton.Size.Height) + 20;
-        FloatAnimationRippleSize.StopValue := LTamanho * 1.2;
+          LTamanho := Self.MaxValue(retButton.Size.Width, retButton.Size.Height) + 20;
+          FloatAnimationRippleSize.StopValue := LTamanho * 1.2;
         { sincroniza a duração das animações }
-        FloatAnimationRippleSize.Duration := FloatAnimationRippleOpacity.Duration;
+          FloatAnimationRippleSize.Duration := FloatAnimationRippleOpacity.Duration;
         { anicia as animações }
-        FloatAnimationRippleOpacity.Start;
-        FloatAnimationRippleSize.Start;
-      end);
-  end).Start;
+          FloatAnimationRippleOpacity.Start;
+          FloatAnimationRippleSize.Start;
+        end);
+    end).Start;
 end;
 
 function TfraMRVRaisedFlatButtonMDL.TextStored: Boolean;
@@ -641,8 +653,8 @@ begin
   { define resultado como diferentes }
   LResult := -1;
   { verifica se são iguais }
-  if ((TMethod(Left).Data = TMethod(Right).Data) and
-      (TMethod(Left).Code = TMethod(Right).Code)) then
+  if ((TMethod(Left).Data = TMethod(Right).Data) and (TMethod(Left).Code =
+    TMethod(Right).Code)) then
   begin
     { define resultado como iguais }
     LResult := 0;
@@ -656,6 +668,6 @@ initialization
 
 finalization
   UnRegisterClass(TfraMRVRaisedFlatButtonMDL);
-end.
 
+end.
 

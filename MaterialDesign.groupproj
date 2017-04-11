@@ -12,6 +12,9 @@
         <Projects Include="POCProgressCountFireMonkey.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="..\_Testes\MultiEventos.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -47,14 +50,23 @@
     <Target Name="POCProgressCountFireMonkey:Make">
         <MSBuild Projects="POCProgressCountFireMonkey.dproj" Targets="Make"/>
     </Target>
+    <Target Name="MultiEventos">
+        <MSBuild Projects="..\_Testes\MultiEventos.dproj"/>
+    </Target>
+    <Target Name="MultiEventos:Clean">
+        <MSBuild Projects="..\_Testes\MultiEventos.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="MultiEventos:Make">
+        <MSBuild Projects="..\_Testes\MultiEventos.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="Marvin_Comps_MDL_General;POCButtonsMDLFireMonkey;POCProgressCountFireMonkey"/>
+        <CallTarget Targets="Marvin_Comps_MDL_General;POCButtonsMDLFireMonkey;POCProgressCountFireMonkey;MultiEventos"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="Marvin_Comps_MDL_General:Clean;POCButtonsMDLFireMonkey:Clean;POCProgressCountFireMonkey:Clean"/>
+        <CallTarget Targets="Marvin_Comps_MDL_General:Clean;POCButtonsMDLFireMonkey:Clean;POCProgressCountFireMonkey:Clean;MultiEventos:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="Marvin_Comps_MDL_General:Make;POCButtonsMDLFireMonkey:Make;POCProgressCountFireMonkey:Make"/>
+        <CallTarget Targets="Marvin_Comps_MDL_General:Make;POCButtonsMDLFireMonkey:Make;POCProgressCountFireMonkey:Make;MultiEventos:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

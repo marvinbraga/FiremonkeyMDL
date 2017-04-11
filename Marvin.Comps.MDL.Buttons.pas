@@ -116,6 +116,7 @@ type
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
     function AddOnClickEvent(AEvent: TNotifyEvent): Boolean;
+    function RemoveOnClickEvent(AEvent: TNotifyEvent): Boolean;
   published
     { MDL Button }
     property ButtonType: TMRVButtonMDLType read GetButtonType write SetButtonType;
@@ -292,6 +293,11 @@ begin
     { atualiza as informações do botão }
     Self.AtualizarInformacoesBotao;
   end;
+end;
+
+function TMRVButtonMDL.RemoveOnClickEvent(AEvent: TNotifyEvent): Boolean;
+begin
+  Result := (FButtonMDL.OnClickEvents.Remove(AEvent) >= 0);
 end;
 
 function TMRVButtonMDL.GetAccentColor: TAlphaColor;
